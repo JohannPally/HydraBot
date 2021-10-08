@@ -1,31 +1,34 @@
-import tensorflow as tf
-
-from tensorflow.keras import datasets, layers, models
-import matplotlib.pyplot as plt
-
-(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
-
-# Normalize pixel values to be between 0 and 1
-train_images, test_images = train_images / 255.0, test_images / 255.0
-
-class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
-               'dog', 'frog', 'horse', 'ship', 'truck']
-
-plt.figure(figsize=(10,10))
-for i in range(25):
-    plt.subplot(5,5,i+1)
-    plt.xticks([])
-    plt.yticks([])
-    plt.grid(False)
-    plt.imshow(train_images[i])
-    # The CIFAR labels happen to be arrays,
-    # which is why you need the extra index
-    plt.xlabel(class_names[train_labels[i][0]])
-plt.show()
-
-model = models.Sequential()
-model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Conv2D(64, (3, 3), activation='relu'))
-model.add(layers.MaxPooling2D((2, 2)))
-model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+# import os
+#
+# import torch
+# print(torch.cuda.is_available())
+# from detecto import core, utils, visualize
+# from detecto.visualize import show_labeled_image, plot_prediction_grid
+# from torchvision import transforms
+# import matplotlib.pyplot as plt
+# import numpy as np
+#
+# custom_transforms = transforms.Compose([
+# transforms.ToPILImage(),
+# transforms.Resize(900),
+# transforms.RandomHorizontalFlip(0.5),
+# transforms.ColorJitter(saturation=0.2),
+# transforms.ToTensor(),
+# utils.normalize_transform(),
+# ])
+#
+# dataset = core.Dataset(os.getcwd()+ '/Train/')
+# model = core.Model(['toy car'])
+#
+# model.fit(dataset)
+#
+# """
+# Train_dataset = core.Dataset('Train/',transform=custom_transforms)#L1
+# Test_dataset = core.Dataset('Test/')#L2
+# loader=core.DataLoader(Train_dataset, batch_size=2, shuffle=True)#L3
+# model = core.Model(['toy car'])#L4
+# losses = model.fit(loader, Test_dataset, epochs=25, lr_step_size=5, learning_rate=0.001, verbose=True)#L5
+#
+# plt.plot(losses)
+# plt.show()
+# """
